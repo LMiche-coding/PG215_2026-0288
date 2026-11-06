@@ -18,7 +18,7 @@ typedef struct
 } Registro; 
 
 
-int calcular(int vec, int m, int tipo, int p, char nombre[], int *estado); 
+int calcular(int vec[], int m, int tipo, int p, char nombre[], int *estado); 
 int total_rec(Registro reg[], int n); 
 void ordenar(Registro reg[] ,int n); 
 void buscar(Registro reg[] ,int n); 

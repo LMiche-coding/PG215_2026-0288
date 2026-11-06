@@ -1,0 +1,12 @@
+# Ejecutables y archivos temporales de compilacion 
+build/
+*.exe
+*.o 
+*.obj
+*.out
+
+# archivos del sistema y configuracion privada
+.DS_Store
+Thumbs.db
+.env
+

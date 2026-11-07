@@ -3,7 +3,7 @@
 /*  Nombre:    Layla Garcia                               */
 /*  Matricula: 2026-0288                                  */
 /*  Seccion:   Miercoles                                  */
-/*  Practica:  Parcial #1                                 */
+/*  Practica:  PG215_2026-0288                                 */
 /*  Fecha:     13/10/2026                                 */                       
 /* Link Practica: https://github.com/LMiche-coding/PG215_2026-02888 */
 /**********************************************************/
@@ -215,7 +215,7 @@ void ordenar(Registro reg[], Registro regId[], int n)
         int min_pos = i; 
         for (j = i + 1; j < n ; j++)
         {
-            if (reg[j].score > reg[min_pos].score || reg[j].score == reg[min_pos].score && reg[j].id < reg[min_pos].id)
+            if (reg[j].score > reg[min_pos].score || (reg[j].score == reg[min_pos].score && reg[j].id < reg[min_pos].id))
             {
                 min_pos = j; 
             }

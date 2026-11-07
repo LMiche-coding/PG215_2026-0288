@@ -90,6 +90,7 @@ int main()
         
     }
 
+    // para calcular el score y el estado, tambien convierte el nombre en mayusculas
     for (i = 0; i < n; i++)
     {
         registros[i].score = calcular(
@@ -101,6 +102,7 @@ int main()
             &registros[i].estado); 
     }
 
+    // calcula los score de cada unidad
     total = total_rec(registros, n); // la suma de los score 
   
 

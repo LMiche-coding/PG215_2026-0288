@@ -24,9 +24,9 @@
 #include <stdlib.h>
 #include <reto.h> 
 
-main()
+int main()
 { 
-    int n, m, q,  i, j; 
+    int n, m, q,  i, j, total, media; 
     int muestras[20][8];
     char nombre [16]; 
     Registro registros[MAX_UNIDADES]; 
@@ -87,6 +87,22 @@ main()
         
     }
 
+    for (i = 0; i < n; i++)
+    {
+        registros[i].score = calcular(
+            muestras[i],
+            m,
+            registros[i].config.tipo,
+            registros[i].config.p,
+            registros[i].nombre,
+            &registros[i].estado); 
+    }
+
+    total = total_rec(registros, n);
+    media = total / (double)n;
+
+    return 0;
+
 }
 
 int calcular(int vec[], int m, int tipo, int p, char nombre[], int *estado)
@@ -105,7 +121,7 @@ int calcular(int vec[], int m, int tipo, int p, char nombre[], int *estado)
         {
             if (copia_list[j] < copia_list[min_pos])
             {
-                min_pos == j; 
+                min_pos = j; 
             }
         }
 
@@ -137,26 +153,48 @@ int calcular(int vec[], int m, int tipo, int p, char nombre[], int *estado)
 
     for (i = 0; i < m; i++)
     {
-        if (abs(muestras))
+        if (abs(vec[i] - score) > p)
+        {
+            *estado = 0; 
+            break; 
+        }
     }
 
+    return score; 
 }
 
 int total_rec(Registro reg[], int n)
 {
-    int lista_score[n], i, sumatoria; 
-    sumatoria = 0; 
-
-    for (i = 0; i < n; i++)
+    if (n == 0) 
     {
-        sumatoria += lista_score[i];  
+        return 0; 
     }
-
+    return reg[n - 1].score + total_rec(reg,  n - 1);
 }
 
 void ordenar(Registro reg[] ,int n)
 {
+    int i, j; 
+    Registro temporal; 
 
+    for (i = 0; i < n - 1; i++)
+    {
+        int min_pos = i; 
+        for (j = i + 1; j < n ; j++)
+        {
+            if (reg[j].score < reg[min_pos].score)
+            {
+                min_pos = j; 
+            }
+        }
+
+          if (min_pos != i)
+        {
+            temporal = reg[i]; 
+            reg[i] = reg[min_pos]; 
+            reg[min_pos] = temporal; 
+        }
+    }
 }
 
 void buscar(Registro reg[] ,int n)

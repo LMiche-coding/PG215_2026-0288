@@ -20,6 +20,8 @@
 
 #include <stdio.h> 
 #include <string.h> 
+#include <ctype.h>
+#include <stdlib.h>
 #include <reto.h> 
 
 main()
@@ -89,8 +91,8 @@ main()
 
 int calcular(int vec[], int m, int tipo, int p, char nombre[], int *estado)
 {
-    int copia_list[MAX_MUESTRAS], i, j, temporal; 
-
+    int copia_list[MAX_MUESTRAS], i, j, temporal, score, longitud; 
+ 
     for (i = 0; i < m; i++)
     {
         copia_list[i] = vec[i];
@@ -99,20 +101,43 @@ int calcular(int vec[], int m, int tipo, int p, char nombre[], int *estado)
     for (i = 0; i < m - 1; i++)
     {
         int min_pos = i; 
-        for (int j = i + 1; j < m; j++)
+        for (j = i + 1; j < m; j++)
         {
             if (copia_list[j] < copia_list[min_pos])
             {
                 min_pos == j; 
             }
-        if (min_pos != i)
+        }
+
+          if (min_pos != i)
         {
             temporal = copia_list[i]; 
             copia_list[i] = copia_list[min_pos]; 
             copia_list[min_pos]  = temporal; 
         }
+    }
 
-        }
+   if (m % 2 != 0)
+    {
+        score = copia_list[m/2]; 
+    } else if (tipo == 0) {
+        score = copia_list[(m/2) - 1];
+    } else {
+        score = copia_list[m/2]; 
+    }
+
+    // convertir minusculas a mayusculas con toupper
+    for (i = 0; nombre[i] != "\0"; i++)
+    {
+        nombre[i] = toupper((unsigned char)nombre[i]); 
+    }
+
+    // calcular estado
+    *estado = 1; 
+
+    for (i = 0; i < m; i++)
+    {
+        if (abs(muestras))
     }
 
 }

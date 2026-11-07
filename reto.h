@@ -20,7 +20,7 @@ typedef struct
 
 int calcular(int vec[], int m, int tipo, int p, char nombre[], int *estado); 
 int total_rec(Registro reg[], int n); 
-void ordenar(Registro reg[] ,int n); 
-void buscar(Registro reg[] ,int n); 
+void ordenar(Registro reg[], Registro regId[], int n); 
+int buscar(Registro reg[] ,int n, int id); 
 
 #endif 

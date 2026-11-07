@@ -22,11 +22,11 @@
 #include <string.h> 
 #include <ctype.h>
 #include <stdlib.h>
-#include <reto.h> 
+#include "reto.h" 
 
 int main()
 { 
-    int n, m, q,  i, j, total, media; 
+    int n, m, q,  i, j, total, busqueda; 
     int muestras[20][8];
     char nombre [16]; 
     Registro registros[MAX_UNIDADES]; // arreglo de registros 
@@ -102,7 +102,7 @@ int main()
     }
 
     total = total_rec(registros, n); // la suma de los score 
-    media = total / (double)n; // calculando la media
+  
 
     for (i = 0; i < n; i++)
     {
@@ -112,18 +112,33 @@ int main()
 
     // funcion pues, para ordenar por score y por Id 
     ordenar(ordenScore, ordenId, n); 
+    busqueda = buscar(ordenId, n, q); 
+
 
     for (i = 0; i < n; i++)
     {
         printf("%d %s %d %d\n", registros[i].id, registros[i].nombre,registros[i].score, registros[i].estado); 
     }
+
+    printf("TOTAL %d\n", total);
+
+    printf("ORDER");
+    for (i = 0; i < n; i++)
+    {
+        printf(" %d", ordenScore[i].id);
+    }
+
+    printf("\n"); 
+
+    printf("FIND %d %d\n", q, busqueda); 
+
     return 0;
 
 }
 
 int calcular(int vec[], int m, int tipo, int p, char nombre[], int *estado)
 {
-    int copia_list[MAX_MUESTRAS], i, j, temporal, score, longitud; 
+    int copia_list[MAX_MUESTRAS], i, j, temporal, score; 
  
     for (i = 0; i < m; i++)
     {
@@ -159,7 +174,7 @@ int calcular(int vec[], int m, int tipo, int p, char nombre[], int *estado)
     }
 
     // convertir minusculas a mayusculas con toupper
-    for (i = 0; nombre[i] != "\0"; i++)
+    for (i = 0; nombre[i] != '\0'; i++)
     {
         nombre[i] = toupper((unsigned char)nombre[i]); 
     }
@@ -198,7 +213,7 @@ void ordenar(Registro reg[], Registro regId[], int n)
         int min_pos = i; 
         for (j = i + 1; j < n ; j++)
         {
-            if (reg[j].score < reg[min_pos].score)
+            if (reg[j].score > reg[min_pos].score || reg[j].score == reg[min_pos].score && reg[j].id < reg[min_pos].id)
             {
                 min_pos = j; 
             }
@@ -233,9 +248,23 @@ void ordenar(Registro reg[], Registro regId[], int n)
 
 }
 
-void buscar(Registro reg[] ,int n, int id)
+int buscar(Registro reg[] ,int n, int id)
 {
     int inicio, mitad, fin; 
     inicio = 0; 
     fin = n - 1; 
+
+    while(inicio <= fin)
+    {
+        mitad = (inicio + fin) / 2; 
+        if(reg[mitad].id == id)
+        {
+            return reg[mitad].score;
+        } else if (id < reg[mitad].id){
+            fin = mitad - 1;
+        } else{ 
+            inicio = mitad + 1;
+        }
+    } 
+    return -1; 
 }

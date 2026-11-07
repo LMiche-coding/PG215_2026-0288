@@ -29,7 +29,10 @@ int main()
     int n, m, q,  i, j, total, media; 
     int muestras[20][8];
     char nombre [16]; 
-    Registro registros[MAX_UNIDADES]; 
+    Registro registros[MAX_UNIDADES]; // arreglo de registros 
+
+    Registro ordenScore[MAX_UNIDADES]; 
+    Registro ordenId[MAX_UNIDADES];  
 
     scanf("%d %d %d", &n, &m, &q);
 
@@ -98,9 +101,22 @@ int main()
             &registros[i].estado); 
     }
 
-    total = total_rec(registros, n);
-    media = total / (double)n;
+    total = total_rec(registros, n); // la suma de los score 
+    media = total / (double)n; // calculando la media
 
+    for (i = 0; i < n; i++)
+    {
+        ordenScore[i] = registros[i]; 
+        ordenId[i] = registros [i];
+    }
+
+    // funcion pues, para ordenar por score y por Id 
+    ordenar(ordenScore, ordenId, n); 
+
+    for (i = 0; i < n; i++)
+    {
+        printf("%d %s %d %d\n", registros[i].id, registros[i].nombre,registros[i].score, registros[i].estado); 
+    }
     return 0;
 
 }
@@ -172,7 +188,7 @@ int total_rec(Registro reg[], int n)
     return reg[n - 1].score + total_rec(reg,  n - 1);
 }
 
-void ordenar(Registro reg[] ,int n)
+void ordenar(Registro reg[], Registro regId[], int n)
 {
     int i, j; 
     Registro temporal; 
@@ -195,9 +211,31 @@ void ordenar(Registro reg[] ,int n)
             reg[min_pos] = temporal; 
         }
     }
+
+    for (i = 0; i < n - 1; i++)
+    {
+        int min_pos = i; 
+        for (j = i + 1; j < n ; j++)
+        {
+            if (regId[j].id < regId[min_pos].id)
+            {
+                min_pos = j; 
+            }
+        }
+
+          if (min_pos != i)
+        {
+            temporal = regId[i]; 
+            regId[i] = regId[min_pos]; 
+            regId[min_pos] = temporal; 
+        }
+    }
+
 }
 
-void buscar(Registro reg[] ,int n)
+void buscar(Registro reg[] ,int n, int id)
 {
-
+    int inicio, mitad, fin; 
+    inicio = 0; 
+    fin = n - 1; 
 }
